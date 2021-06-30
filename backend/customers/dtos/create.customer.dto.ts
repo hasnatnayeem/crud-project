@@ -1,4 +1,4 @@
-export interface CraeteCustomerDto {
+export interface CreateCustomerDto {
     name: string
     email: string
     phone: string
