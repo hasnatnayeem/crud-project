@@ -6,7 +6,7 @@ import { PatchCustomerDto } from '../dtos/patch.customer.dto'
 
 class CustomerService implements CRUD {
     async getAll(limit: number, page: number) {
-        Promise.resolve(CustomerDao.getCustomers(limit, page))
+        return Promise.resolve(CustomerDao.getCustomers(limit, page))
     }
 
     create(resource: CreateCustomerDto){
