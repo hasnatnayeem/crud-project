@@ -16,6 +16,7 @@ app.use(cors()) // Enabling CORS middleware
 routes.push(new CustomersRoutes(app))
 
 
-server.listen(port, () => {
+export default server.listen(port, () => {
     console.log(`Server running at http://localhost:${port}`);
 });
+
