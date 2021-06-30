@@ -28,5 +28,6 @@ class CustomerService implements CRUD {
     deleteById(id: string) {
         return Promise.resolve(CustomerDao.deleteCustomerById(id))
     }
-    
 }
+
+export default new CustomerService()
