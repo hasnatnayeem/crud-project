@@ -18,11 +18,11 @@ class CustomerDao {
     }
 
     async updateCustomerById(customerId: string, customerData: PutCustomerDto | PatchCustomerDto) {
-        return {}
+        return `updated ${customerId}`
     }
 
-    async deleteCustomerById(id: string) {
-        return true
+    async deleteCustomerById(customerId: string) {
+        return `deleted ${customerId}`
     }
 
 }
