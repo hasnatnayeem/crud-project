@@ -9,7 +9,7 @@ class CustomerDao {
         return []
     }
 
-    async addCustomer(customerData: CreateCustomerDto) {
+    async createCustomer(customerData: CreateCustomerDto) {
         return 1
     }
 
