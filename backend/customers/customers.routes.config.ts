@@ -2,7 +2,7 @@ import { CommonRoutesConfig } from '../common/common.routes.config'
 import express from 'express'
 
 
-export class CustomerRoutes extends CommonRoutesConfig {
+export class CustomersRoutes extends CommonRoutesConfig {
     constructor(app: express.Application) {
         super(app, 'CustomerRoutes')
     }
