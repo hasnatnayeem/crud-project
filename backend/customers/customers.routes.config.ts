@@ -19,6 +19,7 @@ export class CustomersRoutes extends CommonRoutesConfig {
             )
 
         this.app.route(`/customers/:customerId`)
+            .all(customerValidators.validateCustomerExists)
             .get(customerController.getCustomerById)
             .put(
                 customerValidators.putCustomerValidationRules(),
