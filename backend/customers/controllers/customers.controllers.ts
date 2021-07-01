@@ -8,7 +8,7 @@ class CustomerController {
     }
 
     async getCustomerById(req: express.Request, res: express.Response) {
-        const customer = await customerService.getById(req.body.id)
+        const customer = await customerService.getById(req.params.customerId)
         res.status(200).json(customer)
     }
 
@@ -19,17 +19,17 @@ class CustomerController {
 
 
     async patch(req: express.Request, res: express.Response) {
-        await customerService.patchById(req.body.id, req.body)
+        await customerService.patchById(req.params.customerId, req.body)
         res.status(204).json()
     }
 
     async put(req: express.Request, res: express.Response) {
-        await customerService.putById(req.body.id, req.body)
+        await customerService.putById(req.params.customerId, req.body)
         res.status(204).json()
     }
 
     async deleteCustomer(req: express.Request, res: express.Response) {
-        await customerService.deleteById(req.body.id)
+        await customerService.deleteById(req.params.customerId)
         res.status(204).json()
     }
 }
