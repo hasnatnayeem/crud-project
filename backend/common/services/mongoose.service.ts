@@ -15,6 +15,10 @@ class MongooseService {
         return mongoose;
     }
 
+    generateObjectId() {
+        return mongoose.Types.ObjectId()
+    }
+
     connect = () => {
         mongoose
             .connect(mongoDbConnectionString, this.mongooseOptions)
