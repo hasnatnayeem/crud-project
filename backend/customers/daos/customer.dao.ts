@@ -5,7 +5,7 @@ import mongooseService from '../../common/services/mongoose.service'
 import { CustomerQueryParams } from '../customer-query-params.interface'
 import { CustomersSortByEnum } from '../enums/customers-sort-by.enum'
 import { CustomersFilterByEnum } from '../enums/customers-filter.enum'
-mongooseService.getMongoose().set('debug', true)
+// mongooseService.getMongoose().set('debug', true)
 
 class CustomerDao {
     Schema = mongooseService.getMongoose().Schema
