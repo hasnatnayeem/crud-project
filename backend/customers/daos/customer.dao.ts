@@ -39,7 +39,7 @@ class CustomerDao {
     }
 
     async getCustomerById(customerId: string) {
-        return this.Customer.findOne({ _id: customerId }).populate('Customer').exec();
+        return this.Customer.findOne({ _id: customerId }).exec();
     }
 
     async updateCustomerById(

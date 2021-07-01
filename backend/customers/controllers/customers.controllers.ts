@@ -2,15 +2,13 @@ import express from 'express'
 import customerService from '../services/customers.service'
 
 class CustomerController {
-    async getAllCustomers(req: express.Request, res: express.Response) {
-        // limiting number of resources with default value or user defined value
-        let limit = req?.query?.limit || 10
-        let page = req?.query?.page || 1
+    async getAllCustomers(req: any, res: express.Response) {
+        // limiting number of resources with default value or user defined value 
+        // Converting query parameters from string to number using '+' unary operator
+        let limit: number = +req?.query?.limit || 10
+        let page: number = +req?.query?.page || 1
 
-        // Converting query parameters from string to number
-        limit = +limit
-        page = +page
-
+        
         const customers = await customerService.getAll(limit, page)
         res.status(200).json(customers)
     }
