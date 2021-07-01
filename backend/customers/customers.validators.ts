@@ -3,35 +3,35 @@ import { body, validationResult } from 'express-validator'
 
 export const createCustomerValidationRules = () => {
   return [
-    body('name').not().isEmpty().trim().escape(),
+    body('name').notEmpty().trim().escape(),
     body('email').isEmail().normalizeEmail(),
-    body('phone').not().isEmpty().trim().escape(),
-    body('address').optional().not().isEmpty().trim().escape(),
-    body('city').optional().not().isEmpty().trim().escape(),
-    body('zipCode').optional().not().isEmpty().trim().escape(),
+    body('phone').notEmpty().trim().escape(),
+    body('address').optional().notEmpty().trim().escape(),
+    body('city').optional().notEmpty().trim().escape(),
+    body('zipCode').optional().notEmpty().trim().escape(),
   ]
 }
 
 export const putCustomerValidationRules = () => {
     return [
-      body('name').not().isEmpty().trim().escape(),
+      body('name').notEmpty().trim().escape(),
       body('email').isEmail().normalizeEmail(),
-      body('phone').not().isEmpty().trim().escape(),
-      body('address').not().isEmpty().trim().escape(),
-      body('city').not().isEmpty().trim().escape(),
-      body('zipCode').not().isEmpty().trim().escape(),
+      body('phone').notEmpty().trim().escape(),
+      body('address').exists().trim().escape(),
+      body('city').exists().trim().escape(),
+      body('zipCode').exists().trim().escape(),
     ]
 }
 
 
 export const patchCustomerValidationRules = () => {
     return [
-      body('name').optional().not().isEmpty().trim().escape(),
+      body('name').optional().notEmpty().trim().escape(),
       body('email').optional().isEmail().normalizeEmail(),
-      body('phone').optional().not().isEmpty().trim().escape(),
-      body('address').optional().not().isEmpty().trim().escape(),
-      body('city').optional().not().isEmpty().trim().escape(),
-      body('zipCode').optional().not().isEmpty().trim().escape(),
+      body('phone').optional().notEmpty().trim().escape(),
+      body('address').optional().trim().escape(),
+      body('city').optional().trim().escape(),
+      body('zipCode').optional().trim().escape(),
     ]
   }
   
