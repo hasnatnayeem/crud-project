@@ -14,7 +14,7 @@ class CustomerDao {
         address: String,
         city: String,
         zipCode: String,
-    }, { id: false })
+    }, { id: false, timestamps: true  })
 
     Customer = mongooseService.getMongoose().model('Customers', this.customerSchema)
 
