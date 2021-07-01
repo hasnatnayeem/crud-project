@@ -8,7 +8,7 @@ class CustomerController {
             limit: +req?.query?.limit, // Converting query parameters from string to number
             page: +req?.query?.page,
             sortBy: req?.query?.sortBy,
-            filter: req?.query?.filter,
+            filterParams: req?.query?.filter?.split(',')
         }
 
         const customers = await customerService.getAll(options)

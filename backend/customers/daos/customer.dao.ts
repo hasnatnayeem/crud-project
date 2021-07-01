@@ -4,6 +4,8 @@ import { PatchCustomerDto } from '../dtos/patch.customer.dto'
 import mongooseService from '../../common/services/mongoose.service'
 import { CustomerQueryParams } from '../customer-query-params.interface'
 import { CustomersSortByEnum } from '../enums/customers-sort-by.enum'
+import { CustomersFilterByEnum } from '../enums/customers-filter.enum'
+mongooseService.getMongoose().set('debug', true)
 
 class CustomerDao {
     Schema = mongooseService.getMongoose().Schema
@@ -36,23 +38,26 @@ class CustomerDao {
     }
 
     async getCustomers(options: CustomerQueryParams) {
-        let { limit, page, sortBy, filter } = options
-        let query
+        let { limit, page, sortBy, filterParams } = options
+        let query, sortConfig = {}, filterConfig:any = {}
 
         // setting default values   
         limit = limit ? limit : 10
         page = page ? page : 1
 
-        query = this.Customer.find()
-                .limit(limit)
-                .skip(limit * (page - 1))
-
         // Allowing sorting only with the keys in enum
         if (sortBy in CustomersSortByEnum) {
-            query.sort({ [sortBy]: -1 }) // assigning value of sortBy as Object key
+            sortConfig = { [sortBy]: -1 } // assigning value of sortBy as Object key
         }
 
-        console.log(options)
+        if (filterParams) {
+            filterConfig = mongooseService.generateFilterConfig(filterParams, CustomersFilterByEnum)
+        }
+
+        query = this.Customer.find(filterConfig)
+                .limit(limit)
+                .skip(limit * (page - 1))
+                .sort(sortConfig)
 
         return query.exec()
     }
