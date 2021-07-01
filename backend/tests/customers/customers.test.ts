@@ -1,6 +1,7 @@
 import app from '../../app'
 import supertest from 'supertest'
 import { expect } from 'chai'
+import mongoose from 'mongoose';
 
 const customerData = {}
 
@@ -12,8 +13,9 @@ describe('customers endpoints', function () {
     })
 
     after(function (done) {
-        app.close()
-        done()
+        app.close(() => {
+            mongoose.connection.close(done)
+        })
     })
 
     it('should allow a POST to /customers', async function () {
