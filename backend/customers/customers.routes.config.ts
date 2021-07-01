@@ -1,6 +1,12 @@
 import express from 'express'
 import { CommonRoutesConfig } from '../common/common.routes.config'
 import customerController from './controllers/customers.controllers'
+import { 
+    createCustomerValidationRules, 
+    patchCustomerValidationRules, 
+    putCustomerValidationRules, 
+    validate 
+} from './customers.validators'
 
 
 export class CustomersRoutes extends CommonRoutesConfig {
@@ -11,12 +17,12 @@ export class CustomersRoutes extends CommonRoutesConfig {
     configureRoutes(): express.Application {
         this.app.route(`/customers`)
             .get(customerController.getAllCustomers)
-            .post(customerController.createCustomer);
+            .post(createCustomerValidationRules(), validate, customerController.createCustomer);
 
         this.app.route(`/customers/:customerId`)
             .get(customerController.getCustomerById)
-            .put(customerController.put)
-            .patch(customerController.patch)
+            .put(putCustomerValidationRules(), validate, customerController.put)
+            .patch(patchCustomerValidationRules(), validate, customerController.patch)
             .delete(customerController.deleteCustomer);
 
         return this.app
