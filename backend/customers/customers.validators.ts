@@ -6,9 +6,9 @@ export const createCustomerValidationRules = () => {
     body('name').notEmpty().trim().escape(),
     body('email').isEmail().normalizeEmail(),
     body('phone').notEmpty().trim().escape(),
-    body('address').optional().notEmpty().trim().escape(),
-    body('city').optional().notEmpty().trim().escape(),
-    body('zipCode').optional().notEmpty().trim().escape(),
+    body('address').optional().trim().escape(),
+    body('city').optional().trim().escape(),
+    body('zipCode').optional().trim().escape(),
   ]
 }
 
