@@ -8,9 +8,9 @@ class CustomerValidators {
       body('name').notEmpty().trim().escape(),
       body('email').isEmail().normalizeEmail(),
       body('phone').notEmpty().trim().escape(),
-      body('address').optional().trim().escape(),
-      body('city').optional().trim().escape(),
-      body('zipCode').optional().trim().escape(),
+      body('address').exists().trim().escape(),
+      body('city').exists().trim().escape(),
+      body('zipCode').exists().trim().escape(),
     ]
   }
 
