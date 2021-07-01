@@ -31,10 +31,10 @@ class CustomerDao {
         return customerId
     }
 
-    async getCustomers(limit = 25, page = 0) {
+    async getCustomers(limit: number, page: number) {
         return this.Customer.find()
             .limit(limit)
-            .skip(limit * page)
+            .skip(limit * (page - 1))
             .exec()
     }
 
