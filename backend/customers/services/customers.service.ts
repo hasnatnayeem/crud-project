@@ -3,10 +3,11 @@ import CustomerDao from '../daos/customer.dao'
 import { CreateCustomerDto } from '../dtos/create.customer.dto'
 import { PutCustomerDto } from '../dtos/put.customer.dto'
 import { PatchCustomerDto } from '../dtos/patch.customer.dto'
+import { CustomerQueryParams } from "../customer-query-params.interface";
 
 class CustomerService implements CRUD {
-    async getAll(limit: number, page: number) {
-        return Promise.resolve(CustomerDao.getCustomers(limit, page))
+    async getAll(options: CustomerQueryParams) {
+        return Promise.resolve(CustomerDao.getCustomers(options))
     }
 
     create(resource: CreateCustomerDto){

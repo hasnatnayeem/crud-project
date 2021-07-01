@@ -2,6 +2,8 @@ import { CreateCustomerDto } from '../dtos/create.customer.dto'
 import { PutCustomerDto } from '../dtos/put.customer.dto'
 import { PatchCustomerDto } from '../dtos/patch.customer.dto'
 import mongooseService from '../../common/services/mongoose.service'
+import { CustomerQueryParams } from '../customer-query-params.interface'
+import { CustomersSortByEnum } from '../enums/customers-sort-by.enum'
 
 class CustomerDao {
     Schema = mongooseService.getMongoose().Schema
@@ -18,6 +20,8 @@ class CustomerDao {
 
     Customer = mongooseService.getMongoose().model('Customers', this.customerSchema)
 
+
+
     constructor() {}
 
     async createCustomer(customerData: CreateCustomerDto) {
@@ -31,11 +35,26 @@ class CustomerDao {
         return customerId
     }
 
-    async getCustomers(limit: number, page: number) {
-        return this.Customer.find()
-            .limit(limit)
-            .skip(limit * (page - 1))
-            .exec()
+    async getCustomers(options: CustomerQueryParams) {
+        let { limit, page, sortBy, filter } = options
+        let query
+
+        // setting default values   
+        limit = limit ? limit : 10
+        page = page ? page : 1
+
+        query = this.Customer.find()
+                .limit(limit)
+                .skip(limit * (page - 1))
+
+        // Allowing sorting only with the keys in enum
+        if (sortBy in CustomersSortByEnum) {
+            query.sort({ [sortBy]: -1 }) // assigning value of sortBy as Object key
+        }
+
+        console.log(options)
+
+        return query.exec()
     }
 
     async getCustomerById(customerId: string) {
@@ -57,6 +76,7 @@ class CustomerDao {
     
     
     async deleteCustomerById(customerId: string) {
+        // this.Customer.deleteMany().exec()
         return this.Customer.deleteOne({ _id: customerId }).exec();
     }
 
