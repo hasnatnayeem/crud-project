@@ -4,7 +4,8 @@ import { mongoDbConnectionString } from '../common.config'
 class MongooseService {
     private mongooseOptions = {
         useNewUrlParser: true,
-        useUnifiedTopology: true
+        useUnifiedTopology: true,
+        useFindAndModify: false
     };
 
     constructor() {
