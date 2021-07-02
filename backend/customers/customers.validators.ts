@@ -49,13 +49,13 @@ class CustomerValidators {
       errors: extractedErrors,
     })
   }
-
+  
   validateCustomerExists = async (
     req: express.Request,
     res: express.Response,
     next: express.NextFunction
   ) => {
-    const customer = await customerService.getById(req.params.customerId);
+    const customer = await customerService.getById(req?.params?.customerId);
     if (customer) {
       res.locals.customer = customer;
       next();

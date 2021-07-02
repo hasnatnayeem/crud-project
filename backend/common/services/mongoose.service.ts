@@ -1,3 +1,4 @@
+import express from 'express';
 import mongoose from 'mongoose';
 import { mongoDbConnectionString } from '../common.config'
 
@@ -26,9 +27,9 @@ class MongooseService {
         if (filterParams) {
             filterParams.forEach(filter => {
                 filter = filter.trim() // removing whitespace
-                let [ key, value ] = filter?.split(':') // filter key value pairs are separated by ':'
+                let [key, value] = filter?.split(':') // filter key value pairs are separated by ':'
                 if (key in allowedKeys) { //only allowed fields are filterable
-                    filterConfig[key] = {$regex: value, $options: 'i'}
+                    filterConfig[key] = { $regex: value, $options: 'i' }
                 }
             })
         }
