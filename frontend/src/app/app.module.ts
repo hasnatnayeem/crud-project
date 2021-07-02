@@ -7,7 +7,7 @@ import { CustomersListComponent } from './components/customers-list/customers-li
 import { AddCustomerComponent } from './components/add-customer/add-customer.component';
 import { CustomerDetailsComponent } from './components/customer-details/customer-details.component';
 import { MdbFormsModule } from 'mdb-angular-ui-kit/forms';
-import { MdbPopoverModule } from 'mdb-angular-ui-kit/popover';
+import { MdbModalModule } from 'mdb-angular-ui-kit/modal';
 import { MdbValidationModule } from 'mdb-angular-ui-kit/validation';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -16,14 +16,14 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
     AppComponent,
     CustomersListComponent,
     AddCustomerComponent,
-    CustomerDetailsComponent
+    CustomerDetailsComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     MdbFormsModule,
-    MdbPopoverModule,
+    MdbModalModule,
     MdbValidationModule,
     NoopAnimationsModule
   ],
