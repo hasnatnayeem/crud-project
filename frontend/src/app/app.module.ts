@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
+import { ReactiveFormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { CustomersListComponent } from './components/customers-list/customers-list.component';
 import { AddCustomerComponent } from './components/add-customer/add-customer.component';
@@ -22,6 +23,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    ReactiveFormsModule,
     MdbFormsModule,
     MdbModalModule,
     MdbValidationModule,

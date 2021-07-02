@@ -1,25 +1,48 @@
 <div class="modal-header">
-    <h5 class="modal-title" id="exampleModalLabel">Customer details</h5>
-    <button
-      type="button"
-      class="btn-close"
-      aria-label="Close"
-      (click)="modalRef.close()"
-    ></button>
-  </div>
+  <h5 class="modal-title" id="exampleModalLabel">Customer details</h5>
+  <button type="button" class="btn-close" aria-label="Close" (click)="modalRef.close()"></button>
+</div>
 
-  <div class="modal-body" *ngIf="customer">
-    {{ customer.name }}
-    {{ customer.email }}
-    {{ customer.phone }}
-    {{ customer.address }}
-    {{ customer.city }}
-    {{ customer.zipCode }}
-  </div>
+<div class="modal-body" *ngIf="customer">
 
-  <div class="modal-footer">
-    <button type="button" class="btn btn-secondary" (click)="this.modalRef.close()">
-      Close
-    </button>
-    <button type="button" class="btn btn-primary">Save changes</button>
-</div>  
+  <form [formGroup]="customerForm" (ngSubmit)="onSubmit()" novalidate class="d-grid gap-3">
+
+    <mdb-form-control>
+      <input formControlName="name" mdbInput type="text" class="form-control" />
+      <label mdbLabel class="form-label" for="formControlDefault">Name</label>
+    </mdb-form-control>
+
+    <mdb-form-control>
+      <input formControlName="email" mdbInput type="email" class="form-control" />
+      <label mdbLabel class="form-label" for="formControlDefault">Email</label>
+    </mdb-form-control>
+
+    <mdb-form-control>
+      <input formControlName="phone" mdbInput type="tel" class="form-control" />
+      <label mdbLabel class="form-label" for="formControlDefault">Phone</label>
+    </mdb-form-control>
+
+    <mdb-form-control>
+      <input formControlName="address" mdbInput type="text" class="form-control" />
+      <label mdbLabel class="form-label" for="formControlDefault">Address</label>
+    </mdb-form-control>
+
+    <mdb-form-control>
+      <input formControlName="city" mdbInput type="text" class="form-control" />
+      <label mdbLabel class="form-label" for="formControlDefault">City</label>
+    </mdb-form-control>
+
+    <mdb-form-control>
+      <input formControlName="zipCode" mdbInput type="text" class="form-control" />
+      <label mdbLabel class="form-label" for="formControlDefault">Zip Code</label>
+    </mdb-form-control>
+
+  </form>
+</div>
+
+<div class="modal-footer">
+  <button type="button" class="btn btn-secondary" (click)="this.modalRef.close()">
+    Close
+  </button>
+  <button type="button" class="btn btn-primary" [disabled]="customerForm.pristine">Save changes</button>
+</div>
