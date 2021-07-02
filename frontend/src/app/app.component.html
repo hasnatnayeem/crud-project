@@ -1,2 +1,32 @@
-Header
-<router-outlet></router-outlet>
+<div class="container">
+    <!--Main Navigation-->
+    <header>
+        <!--Navbar-->
+        <nav class="navbar navbar-light bg-light">
+            <div class="container-fluid">
+                <a class="navbar-brand">CRM</a>
+                <form class="d-flex input-group w-auto">
+                    <input type="search" class="form-control" placeholder="Type name or email" aria-label="Search" />
+                </form>
+            </div>
+        </nav>
+        <!--/.Navbar-->
+    </header>
+    <!--Main Navigation-->
+
+    <!--Main layout-->
+    <main>
+        <router-outlet></router-outlet>
+    </main>
+    <!--Main layout-->
+
+    <!--Footer-->
+    <footer class="bg-light text-center text-lg-start">
+        <!-- Copyright -->
+        <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+            A simple CRM project by Nayeem
+        </div>
+        <!-- Copyright -->
+    </footer>
+    <!--Footer-->
+</div>
