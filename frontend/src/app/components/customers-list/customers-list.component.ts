@@ -13,17 +13,37 @@ import { CustomerDetailsComponent } from '../customer-details/customer-details.c
 export class CustomersListComponent implements OnInit {
   modalRef?: MdbModalRef<CustomerDetailsComponent>;
   customers: Customer[] = [];
+  deleteId: any;
 
   constructor(private customerService: CustomerService, private modalService: MdbModalService) { }
 
   ngOnInit(): void {
+    this.retrieveCustomers()
+  }
+
+  retrieveCustomers() {
     this.customerService.getAll()
       .subscribe(customers => this.customers = customers)
   }
 
   openModal(customer: Customer) {
-    console.log(customer)
-    // return
-    this.modalRef = this.modalService.open(CustomerDetailsComponent, { data: { customer: customer }})
+    this.modalRef = this.modalService.open(CustomerDetailsComponent, { data: { customer: customer } })
+  }
+
+  closeModal() {
+    this.modalRef?.close()
+  }
+
+  openDeleteDialog(component: any, customer: Customer) {
+    this.deleteId = customer.id
+    this.modalRef = this.modalService.open(component, { data: { customer: customer } })
+  }
+
+  deleteCustomer() {
+    this.customerService.delete(this.deleteId)
+      .subscribe(_ => {
+        this.customers = this.customers.filter(customer => customer.id != this.deleteId)
+        this.closeModal()
+      })
   }
 }
