@@ -1,8 +1,9 @@
 export class Customer {
-    _id?: any
+    id?: any
     name?: string
     email?: string
     phone?: string
+    address?: string
     city?: string
     zipCode?: string
 }
