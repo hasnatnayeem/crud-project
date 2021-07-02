@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms'
+import { FormControl, FormGroup, FormBuilder } from '@angular/forms'
 import { MdbModalRef } from 'mdb-angular-ui-kit/modal';
 import { Customer } from 'src/app/models/customer.model';
 
@@ -10,13 +10,13 @@ import { Customer } from 'src/app/models/customer.model';
 })
 export class CustomerDetailsComponent implements OnInit {
   customer:Customer = new Customer()
-  customerForm: FormGroup = new FormGroup({})
+  customerForm: FormGroup
 
-  constructor(public modalRef: MdbModalRef<CustomerDetailsComponent>) {
-
-  }
-  ngOnInit(): void {
+  constructor(public modalRef: MdbModalRef<CustomerDetailsComponent>, private formBuilder: FormBuilder) {
     this.customerForm = this.createFormGroup()
+  }
+  
+  ngOnInit(): void {
     this.customerForm.reset(this.customer)
   }
 
@@ -34,6 +34,7 @@ export class CustomerDetailsComponent implements OnInit {
   onSubmit() {
     const result: Customer = Object.assign({}, this.customerForm.value) // deep copying the form-model
     console.log(result);
+    this.modalRef.close()
   }
   
 }

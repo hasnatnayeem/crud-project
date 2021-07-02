@@ -44,5 +44,12 @@
   <button type="button" class="btn btn-secondary" (click)="this.modalRef.close()">
     Close
   </button>
-  <button type="button" class="btn btn-primary" [disabled]="customerForm.pristine">Save changes</button>
+  <button 
+    type="button"
+    class="btn btn-primary" 
+    [disabled]="customerForm.pristine"
+    (click)="onSubmit()"
+    >
+      Save changes
+  </button>
 </div>
