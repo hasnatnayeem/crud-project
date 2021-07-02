@@ -1,5 +1,6 @@
 dist
-
+.env
+data
 # OS X
 .DS_Store*
 Icon?
