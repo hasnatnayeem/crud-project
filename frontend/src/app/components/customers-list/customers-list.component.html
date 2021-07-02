@@ -1,6 +1,32 @@
-<h4>Customers List</h4>
-<ul>
-    <li *ngFor="let customer of customers;">
-        {{ customer.name }}
-    </li>
-</ul>
+<h5>Customers</h5>
+
+<div class="border">
+    <button type="button" class="btn btn-primary">
+        <i class="fa fa-user"></i> New customer</button>
+</div>
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let customer of customers; let i = index">
+            <th>{{ i + 1 }}</th>
+            <td>{{ customer.name }}</td>
+            <td>{{ customer.email }}</td>
+            <td>
+                <button class="btn btn-sm btn-info">
+                    <i class="fa fa-search"></i>Details</button>
+                <button class="btn btn-sm btn-warning">
+                    <i class="fa fa-edit"></i>Edit</button>
+                <button class="btn btn-sm btn-danger">
+                    <i class="fa fa-remove"></i>Delete</button>
+            </td>
+        </tr>
+    </tbody>
+</table>
