@@ -5,6 +5,10 @@
         <i class="fa fa-user"></i> New customer</button>
 </div>
 
+<div *ngIf="searchText">
+    Showing results for : {{ searchText }}
+</div>
+
 <table class="table table-bordered table-striped">
     <thead>
         <tr>

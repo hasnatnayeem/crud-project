@@ -12,8 +12,12 @@ export class CustomerService {
 
   constructor(private http: HttpClient) { }
 
-  getAll(): Observable<Customer[]> {
-    return this.http.get<Customer[]>(baseUrl)
+  getAll(searchText=''): Observable<Customer[]> {
+    let url = baseUrl
+    if (searchText) {
+      url = `${url}?filter=name:${searchText},email:${searchText}`
+    }
+    return this.http.get<Customer[]>(url)
   }
 
   get(id: any): Observable<Customer> {

@@ -19,6 +19,8 @@ export class CustomersListComponent implements OnInit, OnDestroy {
   customers: Customer[] = [];
   deleteId: any;
   subscription?: Subscription;
+  searchText: string = ''
+  searchTextSubscription?: Subscription;
 
   constructor(
     private customerService: CustomerService, 
@@ -30,6 +32,13 @@ export class CustomersListComponent implements OnInit, OnDestroy {
     this.retrieveCustomers()
     this.subscription = this.eventQueue.on(AppEventType.customersChanged)
       .subscribe(event => this.retrieveCustomers());
+
+    this.searchTextSubscription = this.eventQueue.on(AppEventType.searchTextChanged)
+      .subscribe(event => {
+        let newSearchText = event.payload
+        this.searchText = newSearchText
+        this.retrieveCustomers(this.searchText)
+      })
   }
 
 
@@ -37,8 +46,8 @@ export class CustomersListComponent implements OnInit, OnDestroy {
     this.subscription?.unsubscribe()
   }
 
-  retrieveCustomers() {
-    this.customerService.getAll()
+  retrieveCustomers(searchText='') {
+    this.customerService.getAll(searchText)
       .subscribe(customers => this.customers = customers)
   }
 

@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms'
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms'
 import { MdbModalRef } from 'mdb-angular-ui-kit/modal';
+import { Subscription } from 'rxjs';
 import { Customer } from 'src/app/models/customer.model';
 import { CustomerService } from 'src/app/services/customer.service';
 import { AppEventType } from 'src/app/services/event-queue/app-event-type.enum';
@@ -12,10 +13,12 @@ import { EventQueueService } from 'src/app/services/event-queue/event-queue.serv
   templateUrl: './customer-details.component.html',
   styleUrls: ['./customer-details.component.scss']
 })
-export class CustomerDetailsComponent implements OnInit {
+export class CustomerDetailsComponent implements OnInit, OnDestroy {
   customer: Customer
   mode: string = ''
+  searchText: string = ''
   customerForm: FormGroup
+  subscription?: Subscription;
 
   constructor(
     public modalRef: MdbModalRef<CustomerDetailsComponent>,
@@ -28,6 +31,10 @@ export class CustomerDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     this.customerForm.reset(this.customer)
+  }
+
+  ngOnDestroy(): void {
+    this.subscription?.unsubscribe()
   }
 
   createFormGroup() {

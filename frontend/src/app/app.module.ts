@@ -11,6 +11,7 @@ import { MdbFormsModule } from 'mdb-angular-ui-kit/forms';
 import { MdbModalModule } from 'mdb-angular-ui-kit/modal';
 import { MdbValidationModule } from 'mdb-angular-ui-kit/validation';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { SearchBoxComponent } from './components/search-box/search-box.component';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
     CustomersListComponent,
     AddCustomerComponent,
     CustomerDetailsComponent,
+    SearchBoxComponent,
   ],
   imports: [
     BrowserModule,
