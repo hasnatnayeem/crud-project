@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms'
+import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms'
 import { MdbModalRef } from 'mdb-angular-ui-kit/modal';
 import { Customer } from 'src/app/models/customer.model';
 import { CustomerService } from 'src/app/services/customer.service';
@@ -17,7 +17,7 @@ export class CustomerDetailsComponent implements OnInit {
   customerForm: FormGroup
 
   constructor(
-    public modalRef: MdbModalRef<CustomerDetailsComponent>, 
+    public modalRef: MdbModalRef<CustomerDetailsComponent>,
     private customerService: CustomerService,
     private eventQueue: EventQueueService
   ) {
@@ -30,14 +30,21 @@ export class CustomerDetailsComponent implements OnInit {
 
   createFormGroup() {
     return new FormGroup({
-      name: new FormControl(),
-      email: new FormControl(),
-      phone: new FormControl(),
-      address: new FormControl(),
-      city: new FormControl(),
-      zipCode: new FormControl(),
+      name: new FormControl(null, [Validators.required, Validators.minLength(2)]),
+      email: new FormControl(null, [Validators.required, Validators.email]),
+      phone: new FormControl(null, [Validators.required, Validators.maxLength(15)]),
+      address: new FormControl(null, [Validators.maxLength(15)]),
+      city: new FormControl(null, [Validators.maxLength(15)]),
+      zipCode: new FormControl(null, [Validators.maxLength(15)]),
     })
   }
+
+  get name() { return this.customerForm.get('name'); }
+  get email() { return this.customerForm.get('email'); }
+  get phone() { return this.customerForm.get('phone'); }
+  get address() { return this.customerForm.get('address'); }
+  get city() { return this.customerForm.get('city'); }
+  get zipCode() { return this.customerForm.get('zipCode'); }
 
   onSubmit() {
     const data: Customer = Object.assign({}, this.customerForm.value) // deep copying the form-model
@@ -50,5 +57,5 @@ export class CustomerDetailsComponent implements OnInit {
         this.modalRef.close()
       })
   }
-  
+
 }
