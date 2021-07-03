@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { MdbModalModule, MdbModalRef, MdbModalService} from 'mdb-angular-ui-kit/modal';
 
 import { CustomerDetailsComponent } from './customer-details.component';
 
@@ -8,7 +9,8 @@ describe('CustomerDetailsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CustomerDetailsComponent ]
+      declarations: [ CustomerDetailsComponent ],
+      imports: [MdbModalModule]
     })
     .compileComponents();
   });
