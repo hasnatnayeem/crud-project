@@ -3,6 +3,9 @@ import { Customer } from 'src/app/models/customer.model';
 import { CustomerService } from 'src/app/services/customer.service';
 import { MdbModalRef, MdbModalService } from 'mdb-angular-ui-kit/modal';
 import { CustomerDetailsComponent } from '../customer-details/customer-details.component';
+import { EventQueueService } from 'src/app/services/event-queue/event-queue.service';
+import { AppEventType } from 'src/app/services/event-queue/app-event-type.enum';
+import { take } from 'rxjs/operators';
 
 
 @Component({
@@ -15,10 +18,17 @@ export class CustomersListComponent implements OnInit {
   customers: Customer[] = [];
   deleteId: any;
 
-  constructor(private customerService: CustomerService, private modalService: MdbModalService) { }
+  constructor(
+    private customerService: CustomerService, 
+    private modalService: MdbModalService,
+    private eventQueue: EventQueueService
+  ) { }
 
   ngOnInit(): void {
     this.retrieveCustomers()
+    this.eventQueue.on(AppEventType.customersChanged )
+      .pipe(take(1))
+      .subscribe(event => this.retrieveCustomers());
   }
 
   retrieveCustomers() {
@@ -46,4 +56,5 @@ export class CustomersListComponent implements OnInit {
         this.closeModal()
       })
   }
+
 }
