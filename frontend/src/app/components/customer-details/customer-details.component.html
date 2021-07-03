@@ -25,7 +25,7 @@
       <label mdbLabel class="form-label" for="formControlDefault">Phone</label>
       <mdb-error *ngIf="(phone?.dirty || phone?.touched) && phone?.errors?.required">Phone number is required</mdb-error>
       <mdb-error *ngIf="(phone?.dirty || phone?.touched) && phone?.errors?.pattern">Invalid phone number</mdb-error>
-      <mdb-error *ngIf="(phone?.dirty || phone?.touched) && phone?.errors?.maxlength">Phone number can have maximum 15 characters</mdb-error>
+      <mdb-error *ngIf="(phone?.dirty || phone?.touched) && !phone?.errors?.pattern && phone?.errors?.maxlength">Phone number can have maximum 15 characters</mdb-error>
     </mdb-form-control>
 
     <mdb-form-control>
