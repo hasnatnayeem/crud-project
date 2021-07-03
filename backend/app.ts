@@ -1,8 +1,6 @@
 import dotenv from 'dotenv';
-const dotenvResult = dotenv.config();
-if (dotenvResult.error) {
-    throw dotenvResult.error;
-}
+dotenv.config();
+
 
 import express from 'express'
 import cors from 'cors'
