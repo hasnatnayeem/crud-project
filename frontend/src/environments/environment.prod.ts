@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiBaseUrl: 'http://frontend.hasnatnayeem.com/v1'
+  apiBaseUrl: 'http://backend.hasnatnayeem.com/v1'
 };
