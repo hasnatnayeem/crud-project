@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Customer } from 'src/app/models/customer.model';
 import { CustomerService } from 'src/app/services/customer.service';
 import { MdbModalRef, MdbModalService } from 'mdb-angular-ui-kit/modal';
@@ -6,6 +6,7 @@ import { CustomerDetailsComponent } from '../customer-details/customer-details.c
 import { EventQueueService } from 'src/app/services/event-queue/event-queue.service';
 import { AppEventType } from 'src/app/services/event-queue/app-event-type.enum';
 import { take } from 'rxjs/operators';
+import { Subscription } from 'rxjs';
 
 
 @Component({
@@ -13,10 +14,11 @@ import { take } from 'rxjs/operators';
   templateUrl: './customers-list.component.html',
   styleUrls: ['./customers-list.component.scss']
 })
-export class CustomersListComponent implements OnInit {
+export class CustomersListComponent implements OnInit, OnDestroy {
   modalRef?: MdbModalRef<CustomerDetailsComponent>;
   customers: Customer[] = [];
   deleteId: any;
+  subscription?: Subscription;
 
   constructor(
     private customerService: CustomerService, 
@@ -26,9 +28,13 @@ export class CustomersListComponent implements OnInit {
 
   ngOnInit(): void {
     this.retrieveCustomers()
-    this.eventQueue.on(AppEventType.customersChanged )
-      .pipe(take(1))
+    this.subscription = this.eventQueue.on(AppEventType.customersChanged)
       .subscribe(event => this.retrieveCustomers());
+  }
+
+
+  ngOnDestroy(): void {
+    this.subscription?.unsubscribe()
   }
 
   retrieveCustomers() {
@@ -36,8 +42,8 @@ export class CustomersListComponent implements OnInit {
       .subscribe(customers => this.customers = customers)
   }
 
-  openModal(customer: Customer) {
-    this.modalRef = this.modalService.open(CustomerDetailsComponent, { data: { customer: customer } })
+  openCustomerDetailsModal(customer: Customer = new Customer(), mode:string = 'new') {
+    this.modalRef = this.modalService.open(CustomerDetailsComponent, { data: { customer: customer, mode: mode } })
   }
 
   closeModal() {

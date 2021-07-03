@@ -13,7 +13,8 @@ import { EventQueueService } from 'src/app/services/event-queue/event-queue.serv
   styleUrls: ['./customer-details.component.scss']
 })
 export class CustomerDetailsComponent implements OnInit {
-  customer: Customer = new Customer()
+  customer: Customer
+  mode: string = ''
   customerForm: FormGroup
 
   constructor(
@@ -21,6 +22,7 @@ export class CustomerDetailsComponent implements OnInit {
     private customerService: CustomerService,
     private eventQueue: EventQueueService
   ) {
+    this.customer = new Customer()
     this.customerForm = this.createFormGroup()
   }
 
@@ -32,7 +34,7 @@ export class CustomerDetailsComponent implements OnInit {
     return new FormGroup({
       name: new FormControl(null, [Validators.required, Validators.minLength(2)]),
       email: new FormControl(null, [Validators.required, Validators.email]),
-      phone: new FormControl(null, [Validators.required, Validators.maxLength(15)]),
+      phone: new FormControl(null, [Validators.required, Validators.pattern("[0-9 \+]+"), Validators.maxLength(15)]),
       address: new FormControl(null, [Validators.maxLength(15)]),
       city: new FormControl(null, [Validators.maxLength(15)]),
       zipCode: new FormControl(null, [Validators.maxLength(15)]),
@@ -48,14 +50,24 @@ export class CustomerDetailsComponent implements OnInit {
 
   onSubmit() {
     const data: Customer = Object.assign({}, this.customerForm.value) // deep copying the form-model
-    const customerId = this.customer.id
 
-    this.customerService.update(customerId, data)
-      .subscribe(_ => {
-        data.id = customerId
-        this.eventQueue.dispatch(new AppEvent(AppEventType.customersChanged, data));
+    if (this.mode === 'new') {
+      this.customerService.create(data)
+      .subscribe(result => {
+        this.eventQueue.dispatch(new AppEvent(AppEventType.customersChanged, result));
         this.modalRef.close()
       })
+    }
+    else if (this.mode === 'edit') {
+      const customerId = this.customer.id
+      this.customerService.update(customerId, data)
+        .subscribe(_ => {
+          data.id = customerId
+          this.eventQueue.dispatch(new AppEvent(AppEventType.customersChanged, data));
+          this.modalRef.close()
+        })
+
+    }
   }
 
 }

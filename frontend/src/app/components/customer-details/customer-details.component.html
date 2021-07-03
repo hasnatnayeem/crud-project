@@ -9,40 +9,41 @@
     <mdb-form-control>
       <input mdbValidate mdbInput type="text" id="name" class="form-control" formControlName="name"/>
       <label mdbLabel class="form-label" for="name">Name</label>
-      <mdb-error *ngIf="name?.errors?.required">Name is required</mdb-error>
-      <mdb-error *ngIf="name?.errors?.minlength">Name should contain at least 2 characters</mdb-error>
+      <mdb-error *ngIf="(name?.dirty || name?.touched) && name?.errors?.required">Name is required</mdb-error>
+      <mdb-error *ngIf="(name?.dirty || name?.touched) && name?.errors?.minlength">Name should contain at least 2 characters</mdb-error>
     </mdb-form-control>
 
     <mdb-form-control>
       <input mdbValidate mdbInput formControlName="email" type="email" class="form-control" />
       <label mdbLabel class="form-label" for="formControlDefault">Email</label>
-      <mdb-error *ngIf="email?.errors?.required">Email address is required</mdb-error>
-      <mdb-error *ngIf="email?.errors?.email">Email address is not valid</mdb-error>
+      <mdb-error *ngIf="(email?.dirty || email?.touched) && email?.errors?.required">Email address is required</mdb-error>
+      <mdb-error *ngIf="(email?.dirty || email?.touched) && email?.errors?.email">Email address is not valid</mdb-error>
     </mdb-form-control>
 
     <mdb-form-control>
       <input mdbValidate mdbInput formControlName="phone" type="tel" class="form-control" />
       <label mdbLabel class="form-label" for="formControlDefault">Phone</label>
-      <mdb-error *ngIf="phone?.errors?.required">Phone number is required</mdb-error>
-      <mdb-error *ngIf="phone?.errors?.maxlength">Phone number can have maximum 15 characters</mdb-error>
+      <mdb-error *ngIf="(phone?.dirty || phone?.touched) && phone?.errors?.required">Phone number is required</mdb-error>
+      <mdb-error *ngIf="(phone?.dirty || phone?.touched) && phone?.errors?.pattern">Invalid phone number</mdb-error>
+      <mdb-error *ngIf="(phone?.dirty || phone?.touched) && phone?.errors?.maxlength">Phone number can have maximum 15 characters</mdb-error>
     </mdb-form-control>
 
     <mdb-form-control>
       <input mdbValidate mdbInput formControlName="address" type="text" class="form-control" />
       <label mdbLabel class="form-label" for="formControlDefault">Address (Optional)</label>
-      <mdb-error *ngIf="address?.errors?.maxlength">Address can have maximum 15 characters</mdb-error>
+      <mdb-error *ngIf="(address?.dirty || address?.touched) && address?.errors?.maxlength">Address can have maximum 15 characters</mdb-error>
     </mdb-form-control>
 
     <mdb-form-control>
       <input mdbValidate mdbInput formControlName="city" type="text" class="form-control" />
       <label mdbLabel class="form-label" for="formControlDefault">City (Optional)</label>
-      <mdb-error *ngIf="city?.errors?.maxlength">City name can have maximum 15 characters</mdb-error>
+      <mdb-error *ngIf="(city?.dirty || city?.touched) && city?.errors?.maxlength">City name can have maximum 15 characters</mdb-error>
     </mdb-form-control>
 
     <mdb-form-control>
       <input mdbValidate mdbInput formControlName="zipCode" type="text" class="form-control" />
       <label mdbLabel class="form-label" for="formControlDefault">Zip Code (Optional)</label>
-      <mdb-error *ngIf="zipCode?.errors?.maxlength">Zip code can have maximum 15 characters</mdb-error>
+      <mdb-error *ngIf="(zipCode?.dirty || zipCode?.touched) && zipCode?.errors?.maxlength">Zip code can have maximum 15 characters</mdb-error>
     </mdb-form-control>
 
   </form>
