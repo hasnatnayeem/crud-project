@@ -6,7 +6,7 @@ FROM node:14.17.1-alpine as builder
 # Set the working directory
 WORKDIR /app
 
-COPY package.json .
+COPY package.json package-lock.json ./
 
 # Install all the dependencies
 RUN npm install
