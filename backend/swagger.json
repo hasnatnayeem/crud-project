@@ -29,6 +29,43 @@
                 "tags": [
                     "Customers"
                 ],
+
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "sortBy",
+                        "type": "string",
+                        "description": "Sort data by 'name' or 'createdDate'",
+                        "schema": {
+                            "type": "string",
+                            "enum": ["name", "createdDate"]
+                        }
+                    },
+                    {
+                        "in": "query",
+                        "name": "filter",
+                        "type": "string",
+                        "description": "Enter text to search by name, email or both",
+                        "examples": {
+                            "withoutSearching": {
+                                "value": "",
+                                "summary": "Without searching"
+                            },
+                            "name": {
+                                "value": "name:nayeem",
+                                "summary": "Search by name"
+                            },
+                            "email": {
+                                "value": "email:gmail",
+                                "summary": "Search by email"
+                            },
+                            "nameAndEmail": {
+                                "value": "name:nayeem,email:gmail",
+                                "summary": "Search by both name and email"
+                            }
+                        }
+                    }
+                ],
                 "summary": "Get all Customers in system",
                 "responses": {
                     "200": {
