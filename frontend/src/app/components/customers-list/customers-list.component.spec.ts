@@ -41,5 +41,15 @@ describe('CustomersListComponent', () => {
     expect(button.nativeElement.textContent.trim()).toEqual(buttonText)
   }));
 
+  it(`should open customer details in modal`, (() => {
+    const buttonText = 'Details'
+    const button = fixture.debugElement.query(By.css('.btn-customer-details'));
+    expect(button.nativeElement.textContent.trim()).toEqual(buttonText)
+    button.triggerEventHandler('click', null)
+    fixture.detectChanges()
+    expect(component.modalRef).not.toBe(undefined)
+    component.modalRef?.close()
+  }));
+
 
 });

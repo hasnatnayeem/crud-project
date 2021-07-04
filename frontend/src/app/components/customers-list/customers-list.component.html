@@ -24,7 +24,7 @@
             <td>{{ customer.name }}</td>
             <td>{{ customer.email }}</td>
             <td>
-                <button class="btn btn-sm btn-info" (click)="openCustomerDetailsModal(customer, 'edit')">
+                <button class="btn btn-sm btn-info btn-customer-details" (click)="openCustomerDetailsModal(customer, 'edit')">
                     <i class="fa fa-search"></i>Details</button>
                 <button class="btn btn-sm btn-danger" (click) = "openDeleteDialog(contentDelete, customer)">
                     <i class="fa fa-remove"></i>Delete</button>
