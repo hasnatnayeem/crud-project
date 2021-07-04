@@ -1,12 +1,12 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, TemplateRef } from '@angular/core';
 import { Customer } from 'src/app/models/customer.model';
 import { CustomerService } from 'src/app/services/customer.service';
 import { MdbModalRef, MdbModalService } from 'mdb-angular-ui-kit/modal';
 import { CustomerDetailsComponent } from '../customer-details/customer-details.component';
 import { EventQueueService } from 'src/app/services/event-queue/event-queue.service';
 import { AppEventType } from 'src/app/services/event-queue/app-event-type.enum';
-import { take } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
+import { ComponentType } from '@angular/cdk/portal';
 
 
 @Component({
@@ -17,21 +17,23 @@ import { Subscription } from 'rxjs';
 export class CustomersListComponent implements OnInit, OnDestroy {
   modalRef?: MdbModalRef<CustomerDetailsComponent>;
   customers: Customer[] = [];
-  deleteId: any;
+  deleteId: string;
   subscription?: Subscription;
   searchText = ''
   searchTextSubscription?: Subscription;
 
   constructor(
-    private customerService: CustomerService, 
+    private customerService: CustomerService,
     private modalService: MdbModalService,
     private eventQueue: EventQueueService
-  ) { }
+  ) {
+    this.deleteId = ''
+  }
 
   ngOnInit(): void {
     this.retrieveCustomers()
     this.subscription = this.eventQueue.on(AppEventType.customersChanged)
-      .subscribe(event => this.retrieveCustomers());
+      .subscribe(() => this.retrieveCustomers());
 
     this.searchTextSubscription = this.eventQueue.on(AppEventType.searchTextChanged)
       .subscribe(event => {
@@ -41,32 +43,34 @@ export class CustomersListComponent implements OnInit, OnDestroy {
       })
   }
 
-
   ngOnDestroy(): void {
     this.subscription?.unsubscribe()
   }
 
-  retrieveCustomers(searchText='') {
+  retrieveCustomers(searchText = ''): void {
     this.customerService.getAll(searchText)
       .subscribe(customers => this.customers = customers)
   }
 
-  openCustomerDetailsModal(customer: Customer = new Customer(), mode = 'new') {
+  openCustomerDetailsModal(customer: Customer = new Customer(), mode = 'new'): void {
     this.modalRef = this.modalService.open(CustomerDetailsComponent, { data: { customer: customer, mode: mode } })
   }
 
-  closeModal() {
+  closeModal(): void {
     this.modalRef?.close()
   }
 
-  openDeleteDialog(component: any, customer: Customer) {
+  openDeleteDialog(component: ComponentType<CustomerDetailsComponent> | TemplateRef<CustomerDetailsComponent>,
+    customer: Customer): void {
+
+    if (!customer.id) customer.id = ''
     this.deleteId = customer.id
     this.modalRef = this.modalService.open(component, { data: { customer: customer } })
   }
 
-  deleteCustomer() {
+  deleteCustomer(): void {
     this.customerService.delete(this.deleteId)
-      .subscribe(_ => {
+      .subscribe(() => {
         this.customers = this.customers.filter(customer => customer.id != this.deleteId)
         this.closeModal()
       })

@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms'
+import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms'
 import { MdbModalRef } from 'mdb-angular-ui-kit/modal';
 import { Subscription } from 'rxjs';
 import { Customer } from 'src/app/models/customer.model';
@@ -37,7 +37,7 @@ export class CustomerDetailsComponent implements OnInit, OnDestroy {
     this.subscription?.unsubscribe()
   }
 
-  createFormGroup() {
+  createFormGroup(): FormGroup {
     return new FormGroup({
       name: new FormControl(null, [Validators.required, Validators.minLength(2)]),
       email: new FormControl(null, [Validators.required, Validators.email]),
@@ -48,14 +48,14 @@ export class CustomerDetailsComponent implements OnInit, OnDestroy {
     })
   }
 
-  get name() { return this.customerForm.get('name'); }
-  get email() { return this.customerForm.get('email'); }
-  get phone() { return this.customerForm.get('phone'); }
-  get address() { return this.customerForm.get('address'); }
-  get city() { return this.customerForm.get('city'); }
-  get zipCode() { return this.customerForm.get('zipCode'); }
+  get name(): AbstractControl | null { return this.customerForm.get('name'); }
+  get email(): AbstractControl | null { return this.customerForm.get('email'); }
+  get phone(): AbstractControl | null { return this.customerForm.get('phone'); }
+  get address(): AbstractControl | null { return this.customerForm.get('address'); }
+  get city(): AbstractControl | null { return this.customerForm.get('city'); }
+  get zipCode(): AbstractControl | null { return this.customerForm.get('zipCode'); }
 
-  onSubmit() {
+  onSubmit(): void {
     const data: Customer = Object.assign({}, this.customerForm.value) // deep copying the form-model
 
     if (this.mode === 'new') {
@@ -66,9 +66,9 @@ export class CustomerDetailsComponent implements OnInit, OnDestroy {
       })
     }
     else if (this.mode === 'edit') {
-      const customerId = this.customer.id
+      const customerId = this.customer.id ? this.customer.id : ''
       this.customerService.update(customerId, data)
-        .subscribe(_ => {
+        .subscribe(() => {
           data.id = customerId
           this.eventQueue.dispatch(new AppEvent(AppEventType.customersChanged, data));
           this.modalRef.close()
