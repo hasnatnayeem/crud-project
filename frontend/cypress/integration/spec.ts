@@ -26,7 +26,7 @@ describe('Testing CRM application', () => {
 
   it('should create a new customer and show it on the home page', () => {
     const randomIndex = Math.floor(Math.random() * customers.length);
-    let customer = customers[randomIndex]
+    const customer = customers[randomIndex]
 
     cy.get('.table').find('tr').its('length').then(initialLength => {
       cy.get('#name').type(customer.name)

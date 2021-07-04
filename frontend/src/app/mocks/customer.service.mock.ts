@@ -7,10 +7,8 @@ import { Customer } from '../models/customer.model';
 })
 export class CustomerServiceMock {
 
-  constructor() { }
-
-  getAll(searchText=''): Observable<Customer[]> {
-    let customers = [
+  getAll(): Observable<Customer[]> {
+    const customers = [
         {
             name: 'customer1',
             email: 'customer1@email.com'

@@ -15,8 +15,8 @@ import { EventQueueService } from 'src/app/services/event-queue/event-queue.serv
 })
 export class CustomerDetailsComponent implements OnInit, OnDestroy {
   customer: Customer
-  mode: string = ''
-  searchText: string = ''
+  mode = ''
+  searchText = ''
   customerForm: FormGroup
   subscription?: Subscription;
 

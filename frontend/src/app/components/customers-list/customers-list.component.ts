@@ -19,7 +19,7 @@ export class CustomersListComponent implements OnInit, OnDestroy {
   customers: Customer[] = [];
   deleteId: any;
   subscription?: Subscription;
-  searchText: string = ''
+  searchText = ''
   searchTextSubscription?: Subscription;
 
   constructor(
@@ -35,7 +35,7 @@ export class CustomersListComponent implements OnInit, OnDestroy {
 
     this.searchTextSubscription = this.eventQueue.on(AppEventType.searchTextChanged)
       .subscribe(event => {
-        let newSearchText = event.payload
+        const newSearchText = event.payload
         this.searchText = newSearchText
         this.retrieveCustomers(this.searchText)
       })
@@ -51,7 +51,7 @@ export class CustomersListComponent implements OnInit, OnDestroy {
       .subscribe(customers => this.customers = customers)
   }
 
-  openCustomerDetailsModal(customer: Customer = new Customer(), mode:string = 'new') {
+  openCustomerDetailsModal(customer: Customer = new Customer(), mode = 'new') {
     this.modalRef = this.modalService.open(CustomerDetailsComponent, { data: { customer: customer, mode: mode } })
   }
 

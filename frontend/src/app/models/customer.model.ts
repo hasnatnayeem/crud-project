@@ -1,5 +1,5 @@
 export class Customer {
-    id?: any
+    id?: string
     name?: string
     email?: string
     phone?: string
