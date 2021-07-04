@@ -21,7 +21,7 @@ class MongooseService {
     }
 
     // process array of filter parameters in order to generate filter configuration for mongoose
-    generateFilterConfig(filterParams: Array<string>, allowedKeys: any) {
+    generateFilterConfig(filterParams: Array<string>, allowedKeys = {}) {
         const filterConfig: Array<unknown> = []
         if (filterParams) {
             filterParams.forEach(filter => {

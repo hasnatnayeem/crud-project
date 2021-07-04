@@ -3,7 +3,7 @@ import { CustomerQueryParams } from '../customer-query-params.interface'
 import customerService from '../services/customers.service'
 
 class CustomerController {
-    async getAllCustomers(req: any, res: express.Response) {
+    async getAllCustomers(req: unknown, res: express.Response) {
         const options: CustomerQueryParams = {
             limit: +req?.query?.limit, // Converting query parameters from string to number
             page: +req?.query?.page,
