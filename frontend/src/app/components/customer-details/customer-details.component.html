@@ -14,14 +14,14 @@
     </mdb-form-control>
 
     <mdb-form-control>
-      <input mdbValidate mdbInput formControlName="email" type="email" class="form-control" />
+      <input mdbValidate mdbInput formControlName="email" type="email" id="email" class="form-control" />
       <label mdbLabel class="form-label" for="formControlDefault">Email</label>
       <mdb-error *ngIf="(email?.dirty || email?.touched) && email?.errors?.required">Email address is required</mdb-error>
       <mdb-error *ngIf="(email?.dirty || email?.touched) && email?.errors?.email">Email address is not valid</mdb-error>
     </mdb-form-control>
 
     <mdb-form-control>
-      <input mdbValidate mdbInput formControlName="phone" type="tel" class="form-control" />
+      <input mdbValidate mdbInput formControlName="phone" type="tel" id="phone" class="form-control" />
       <label mdbLabel class="form-label" for="formControlDefault">Phone</label>
       <mdb-error *ngIf="(phone?.dirty || phone?.touched) && phone?.errors?.required">Phone number is required</mdb-error>
       <mdb-error *ngIf="(phone?.dirty || phone?.touched) && phone?.errors?.pattern">Invalid phone number</mdb-error>
@@ -29,19 +29,19 @@
     </mdb-form-control>
 
     <mdb-form-control>
-      <input mdbValidate mdbInput formControlName="address" type="text" class="form-control" />
+      <input mdbValidate mdbInput formControlName="address" type="text" id="address" class="form-control" />
       <label mdbLabel class="form-label" for="formControlDefault">Address (Optional)</label>
       <mdb-error *ngIf="(address?.dirty || address?.touched) && address?.errors?.maxlength">Address can have maximum 15 characters</mdb-error>
     </mdb-form-control>
 
     <mdb-form-control>
-      <input mdbValidate mdbInput formControlName="city" type="text" class="form-control" />
+      <input mdbValidate mdbInput formControlName="city" type="text" id="city" class="form-control" />
       <label mdbLabel class="form-label" for="formControlDefault">City (Optional)</label>
       <mdb-error *ngIf="(city?.dirty || city?.touched) && city?.errors?.maxlength">City name can have maximum 15 characters</mdb-error>
     </mdb-form-control>
 
     <mdb-form-control>
-      <input mdbValidate mdbInput formControlName="zipCode" type="text" class="form-control" />
+      <input mdbValidate mdbInput formControlName="zipCode" type="text" id="zipCode" class="form-control" />
       <label mdbLabel class="form-label" for="formControlDefault">Zip Code (Optional)</label>
       <mdb-error *ngIf="(zipCode?.dirty || zipCode?.touched) && zipCode?.errors?.maxlength">Zip code can have maximum 15 characters</mdb-error>
     </mdb-form-control>
@@ -50,11 +50,12 @@
 </div>
 
 <div class="modal-footer">
-  <button type="button" class="btn btn-secondary" (click)="this.modalRef.close()">
+  <button type="button" id="closeButton" class="btn btn-secondary" (click)="this.modalRef.close()">
     Close
   </button>
   <button 
     type="button"
+    id="saveButton"
     class="btn btn-primary" 
     [disabled]="customerForm.pristine || customerForm.invalid"
     (click)="onSubmit()"
