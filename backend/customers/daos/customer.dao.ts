@@ -18,16 +18,16 @@ class CustomerDao {
         address: String,
         city: String,
         zipCode: String,
-    }, { 
+    }, {
         timestamps: true,
         toJSON: {
             transform: function (doc, ret) {
-              ret.id = ret._id
-              delete ret._id;
-              delete ret.__v;
+                ret.id = ret._id
+                delete ret._id;
+                delete ret.__v;
             }
-          }
-      })
+        }
+    })
 
     Customer = mongooseService.getMongoose().model('Customers', this.customerSchema)
 
@@ -45,8 +45,8 @@ class CustomerDao {
     async getCustomers(options: CustomerQueryParams) {
         let { limit, page } = options
         const { sortBy, filterParams } = options
-        let sortConfig = {}, filterConfig:Array<unknown> = []
-        
+        let sortConfig = {}, filterConfig: Array<unknown> = []
+
 
         // setting default values   
         limit = limit ? limit : 100
@@ -62,8 +62,8 @@ class CustomerDao {
         }
 
         const query = this.Customer.find()
-                .limit(limit)
-                .skip(limit * (page - 1))
+            .limit(limit)
+            .skip(limit * (page - 1))
 
         if (filterConfig.length > 0) query.or(filterConfig)
         if (sortConfig) query.sort(sortConfig)
@@ -76,7 +76,7 @@ class CustomerDao {
     }
 
     async updateCustomerById(
-        customerId: string, 
+        customerId: string,
         customerData: PutCustomerDto | PatchCustomerDto
     ) {
         const existingCustomer = await this.Customer.findOneAndUpdate(
@@ -87,8 +87,8 @@ class CustomerDao {
 
         return existingCustomer;
     }
-    
-    
+
+
     async deleteCustomerById(customerId: string) {
         return this.Customer.deleteOne({ _id: customerId }).exec();
     }
