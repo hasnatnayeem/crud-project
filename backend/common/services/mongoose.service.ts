@@ -22,11 +22,11 @@ class MongooseService {
 
     // process array of filter parameters in order to generate filter configuration for mongoose
     generateFilterConfig(filterParams: Array<string>, allowedKeys: any) {
-        let filterConfig: Array<Object> = []
+        const filterConfig: Array<unknown> = []
         if (filterParams) {
             filterParams.forEach(filter => {
                 filter = filter.trim() // removing whitespace
-                let [key, value] = filter?.split(':') // filter key value pairs are separated by ':'
+                const [key, value] = filter?.split(':') // filter key value pairs are separated by ':'
                 if (key in allowedKeys) { //only allowed fields are filterable
                     filterConfig.push({ [key]: { $regex: value, $options: 'i' } })
                 }
