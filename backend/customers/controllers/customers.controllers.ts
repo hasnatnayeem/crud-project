@@ -4,6 +4,9 @@ import customerService from '../services/customers.service'
 
 class CustomerController {
     async getAllCustomers(req: any, res: express.Response) {
+
+        // let limit = params.limit && parseInt(params.limit) ? limit : 0  
+
         const options: CustomerQueryParams = {
             limit: +req?.query?.limit, // Converting query parameters from string to number
             page: +req?.query?.page,
@@ -11,6 +14,10 @@ class CustomerController {
             filterParams: req?.query?.filter?.split(',')
         }
 
+        console.log(options)
+        
+
+        // let options = {}
         const customers = await customerService.getAll(options)
         res.status(200).json(customers)
     }
