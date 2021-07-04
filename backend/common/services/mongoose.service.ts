@@ -23,15 +23,22 @@ class MongooseService {
     // process array of filter parameters in order to generate filter configuration for mongoose
     generateFilterConfig(filterParams: Array<string>, allowedKeys = {}) {
         const filterConfig: Array<unknown> = []
-        if (filterParams) {
-            filterParams.forEach(filter => {
-                filter = filter.trim() // removing whitespace
-                const [key, value] = filter?.split(':') // filter key value pairs are separated by ':'
-                if (key in allowedKeys) { //only allowed fields are filterable
-                    filterConfig.push({ [key]: { $regex: value, $options: 'i' } })
-                }
-            })
+        try {
+            if (filterParams.length) {
+                filterParams.forEach(filter => {
+                    if (!filter) return
+                    filter = filter.trim() // removing whitespace
+                    const [key, value] = filter?.split(':') // filter key value pairs are separated by ':'
+                    if (key in allowedKeys) { //only allowed fields are filterable
+                        filterConfig.push({ [key]: { $regex: value, $options: 'i' } })
+                    }
+                })
+            }
         }
+        catch(err) {
+            console.log('Error processing filter config')
+        }
+        
         return filterConfig
     }
 

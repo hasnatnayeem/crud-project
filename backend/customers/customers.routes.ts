@@ -5,7 +5,11 @@ import customerValidators from './customers.validators'
 const router = express.Router();
 
 router.route(`/`)
-    .get(customerController.getAllCustomers)
+    .get(
+        customerValidators.getCustomerParamsValidationRules(),
+        customerValidators.validate,
+        customerController.getAllCustomers
+    )
     .post(
         customerValidators.createCustomerValidationRules(),
         customerValidators.validate,

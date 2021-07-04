@@ -1,8 +1,15 @@
 import express from 'express'
-import { body, validationResult } from 'express-validator'
+import { query ,body, validationResult } from 'express-validator'
 import customerService from './services/customers.service'
 
 class CustomerValidators {
+  getCustomerParamsValidationRules = () => {
+    return [
+      query('sortBy').optional().notEmpty().trim().escape(),
+      query('filter').optional().notEmpty().escape(),
+    ]
+  }
+
   createCustomerValidationRules = () => {
     return [
       body('name').notEmpty().trim().escape(),

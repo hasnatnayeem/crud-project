@@ -30,7 +30,6 @@ class CustomerDao {
       })
 
     Customer = mongooseService.getMongoose().model('Customers', this.customerSchema)
-    
 
     async createCustomer(customerData: CreateCustomerDto) {
         const customerId = mongooseService.generateObjectId()
@@ -46,25 +45,28 @@ class CustomerDao {
     async getCustomers(options: CustomerQueryParams) {
         let { limit, page } = options
         const { sortBy, filterParams } = options
-        let sortConfig = {}, filterConfig = {}
+        let sortConfig = {}, filterConfig:Array<unknown> = []
+        
 
         // setting default values   
         limit = limit ? limit : 100
         page = page ? page : 1
 
         // Allowing sorting only with the keys in enum
-        if (sortBy in CustomersSortByEnum) {
-            sortConfig = { [sortBy]: -1 } // assigning value of sortBy as Object key
+        if (sortBy && sortBy in CustomersSortByEnum) {
+            sortConfig = { [sortBy]: 1 } // assigning value of sortBy as Object key
         }
 
         if (filterParams) {
             filterConfig = mongooseService.generateFilterConfig(filterParams, CustomersFilterByEnum)
         }
 
-        const query = this.Customer.find().or(filterConfig)
+        const query = this.Customer.find()
                 .limit(limit)
                 .skip(limit * (page - 1))
-                .sort(sortConfig)
+
+        if (filterConfig.length > 0) query.or(filterConfig)
+        if (sortConfig) query.sort(sortConfig)
 
         return query.exec()
     }
@@ -88,7 +90,6 @@ class CustomerDao {
     
     
     async deleteCustomerById(customerId: string) {
-        // this.Customer.deleteMany().exec()
         return this.Customer.deleteOne({ _id: customerId }).exec();
     }
 
