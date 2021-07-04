@@ -30,11 +30,6 @@ class CustomerDao {
       })
 
     Customer = mongooseService.getMongoose().model('Customers', this.customerSchema)
-    
-
-
-
-    constructor() {}
 
     async createCustomer(customerData: CreateCustomerDto) {
         const customerId = mongooseService.generateObjectId()
@@ -48,8 +43,10 @@ class CustomerDao {
     }
 
     async getCustomers(options: CustomerQueryParams) {
-        let { limit, page, sortBy, filterParams } = options
-        let query, sortConfig = {}, filterConfig:any = {}
+        let { limit, page } = options
+        const { sortBy, filterParams } = options
+        let sortConfig = {}, filterConfig:any = {}
+        
 
         // setting default values   
         limit = limit ? limit : 100
@@ -64,10 +61,10 @@ class CustomerDao {
             filterConfig = mongooseService.generateFilterConfig(filterParams, CustomersFilterByEnum)
         }
 
-        query = this.Customer.find().or(filterConfig)
-                // .limit(limit)
-                // .skip(limit * (page - 1))
-                // .sort(sortConfig)
+        const query = this.Customer.find().or(filterConfig)
+                .limit(limit)
+                .skip(limit * (page - 1))
+                .sort(sortConfig)
 
         return query.exec()
     }
