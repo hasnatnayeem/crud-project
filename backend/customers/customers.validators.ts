@@ -52,7 +52,7 @@ class CustomerValidators {
     const extractedErrors: Array<unknown> = []
     errors.array().map(err => extractedErrors.push({ [err.param]: err.msg }))
 
-    return res.status(422).json({
+    return res.status(400).json({
       errors: extractedErrors,
     })
   }

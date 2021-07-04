@@ -74,7 +74,7 @@ describe('customers endpoints', function () {
         const res = await request
             .put(`/v1/customers/${customerId}`)
             .send({ name: 'New name' })
-        expect(res.status).to.equal(422)
+        expect(res.status).to.equal(400)
         expect(res.body).to.be.an('object')
         expect(res.body.errors).to.be.an('array')
     })
