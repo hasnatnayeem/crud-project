@@ -1,4 +1,6 @@
 import { Injectable } from '@angular/core';
+import { Observable, of } from 'rxjs';
+import { Customer } from '../models/customer.model';
 
 @Injectable({
   providedIn: 'root'
@@ -7,13 +9,18 @@ export class CustomerServiceMock {
 
   constructor() { }
 
-  getAll(searchText=''): Array<{}> {
-    return [
+  getAll(searchText=''): Observable<Customer[]> {
+    let customers = [
         {
-            name: 'user1',
-            email: 'user@email.com'
+            name: 'customer1',
+            email: 'customer1@email.com'
+        },
+        {
+            name: 'customer2',
+            email: 'customer2@email.com'
         }
-    ];
+    ]
+    return of(customers)
   }
 
 //   get(id: any): Observable<Customer> {

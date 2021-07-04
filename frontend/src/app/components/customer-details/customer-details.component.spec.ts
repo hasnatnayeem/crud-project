@@ -46,7 +46,7 @@ describe('CustomerDetailsComponent', () => {
     overlayContainer.ngOnDestroy();
   });
 
-  it('should open a modal with a  specified component', () => {
+  xit('should open a modal with a  specified component', () => {
     modal.open(CustomerDetailsComponent);
 
     expect(overlayContainerElement.textContent).toContain('Customer details');
