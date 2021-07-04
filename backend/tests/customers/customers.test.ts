@@ -3,7 +3,7 @@ import supertest from 'supertest'
 import { expect } from 'chai'
 import mongoose from 'mongoose'
 
-let customerId:string = ''
+let customerId = ''
 
 const customerData = {
     name: 'Nayeem',
