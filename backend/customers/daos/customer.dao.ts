@@ -49,7 +49,7 @@ class CustomerDao {
 
     async getCustomers(options: CustomerQueryParams) {
         let { limit, page, sortBy, filterParams } = options
-        let query, sortConfig = {}, filterConfig:any = {}
+        let query, sortConfig = {}, filterConfig = {}
 
         // setting default values   
         limit = limit ? limit : 100
@@ -65,9 +65,9 @@ class CustomerDao {
         }
 
         query = this.Customer.find().or(filterConfig)
-                // .limit(limit)
-                // .skip(limit * (page - 1))
-                // .sort(sortConfig)
+                .limit(limit)
+                .skip(limit * (page - 1))
+                .sort(sortConfig)
 
         return query.exec()
     }

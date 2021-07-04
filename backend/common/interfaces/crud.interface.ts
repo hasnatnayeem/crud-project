@@ -1,5 +1,3 @@
-import { QueryParams } from "./query-params.interface";
-
 export interface CRUD {
     getAll: (options: any) => Promise<any>
     create: (resource: any) => Promise<any>

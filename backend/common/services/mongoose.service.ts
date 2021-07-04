@@ -1,4 +1,3 @@
-import express from 'express';
 import mongoose from 'mongoose';
 import { mongoDbConnectionString } from '../common.config'
 
@@ -23,7 +22,7 @@ class MongooseService {
 
     // process array of filter parameters in order to generate filter configuration for mongoose
     generateFilterConfig(filterParams: Array<string>, allowedKeys: any) {
-        let filterConfig: any = []
+        let filterConfig: Array<Object> = []
         if (filterParams) {
             filterParams.forEach(filter => {
                 filter = filter.trim() // removing whitespace
