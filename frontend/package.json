@@ -10,7 +10,7 @@
     "e2e": "ng e2e",
     "cypress:open": "cypress open",
     "cypress:run": "cypress run",
-    "lint": "ng lint"
+    "lint": "eslint \"**/*.{ts,tsx}\" "
   },
   "private": true,
   "dependencies": {
