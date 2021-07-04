@@ -45,7 +45,7 @@ class CustomerDao {
     async getCustomers(options: CustomerQueryParams) {
         let { limit, page } = options
         const { sortBy, filterParams } = options
-        let sortConfig = {}, filterConfig:any = {}
+        let sortConfig = {}, filterConfig:unknown = {}
         
 
         // setting default values   
@@ -88,7 +88,6 @@ class CustomerDao {
     
     
     async deleteCustomerById(customerId: string) {
-        // this.Customer.deleteMany().exec()
         return this.Customer.deleteOne({ _id: customerId }).exec();
     }
 
