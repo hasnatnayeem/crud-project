@@ -32,6 +32,7 @@ export class CustomersListComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.retrieveCustomers()
+
     this.subscription = this.eventQueue.on(AppEventType.customersChanged)
       .subscribe(() => this.retrieveCustomers());
 
@@ -45,6 +46,7 @@ export class CustomersListComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.subscription?.unsubscribe()
+    this.searchTextSubscription?.unsubscribe()
   }
 
   retrieveCustomers(searchText = ''): void {
@@ -63,7 +65,7 @@ export class CustomersListComponent implements OnInit, OnDestroy {
   openDeleteDialog(component: ComponentType<CustomerDetailsComponent> | TemplateRef<CustomerDetailsComponent>,
     customer: Customer): void {
 
-    if (!customer.id) customer.id = ''
+    if (!customer.id) customer.id = '' // making sure it is not undefined
     this.deleteId = customer.id
     this.modalRef = this.modalService.open(component, { data: { customer: customer } })
   }

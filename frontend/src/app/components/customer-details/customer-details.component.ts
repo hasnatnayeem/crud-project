@@ -48,6 +48,7 @@ export class CustomerDetailsComponent implements OnInit, OnDestroy {
     })
   }
 
+  // Getters to access from template
   get name(): AbstractControl | null { return this.customerForm.get('name'); }
   get email(): AbstractControl | null { return this.customerForm.get('email'); }
   get phone(): AbstractControl | null { return this.customerForm.get('phone'); }
@@ -55,6 +56,7 @@ export class CustomerDetailsComponent implements OnInit, OnDestroy {
   get city(): AbstractControl | null { return this.customerForm.get('city'); }
   get zipCode(): AbstractControl | null { return this.customerForm.get('zipCode'); }
 
+  // making different http request based on modal's mode
   onSubmit(): void {
     const data: Customer = Object.assign({}, this.customerForm.value) // deep copying the form-model
 
