@@ -43,6 +43,8 @@ class CustomerValidators {
     ]
   }
 
+  // Returning error response on validation error
+  // Otherwise letting pass to next middleware
   validate = async (req: express.Request, res: express.Response, next: express.NextFunction) => {
     const errors = validationResult(req)
     if (errors.isEmpty()) {

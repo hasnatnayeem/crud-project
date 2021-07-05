@@ -25,9 +25,7 @@ describe('customers endpoints', function () {
     })
 
     after(function (done) {
-        // app.close(() => {
-            mongoose.connection.close(done)
-        // })
+        mongoose.connection.close(done)
     })
 
     it('should allow a POST to /v1/customers', async function () {

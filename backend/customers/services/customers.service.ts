@@ -5,6 +5,8 @@ import { PutCustomerDto } from '../dtos/put.customer.dto'
 import { PatchCustomerDto } from '../dtos/patch.customer.dto'
 import { CustomerQueryParams } from "../customer-query-params.interface";
 
+// Maintains communication between controller and DAO
+
 class CustomerService implements CRUD {
     async getAll(options: CustomerQueryParams) {
         return Promise.resolve(CustomerDao.getCustomers(options))

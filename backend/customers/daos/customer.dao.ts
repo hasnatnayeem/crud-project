@@ -5,7 +5,8 @@ import mongooseService from '../../common/services/mongoose.service'
 import { CustomerQueryParams } from '../customer-query-params.interface'
 import { CustomersSortByEnum } from '../enums/customers-sort-by.enum'
 import { CustomersFilterByEnum } from '../enums/customers-filter.enum'
-mongooseService.getMongoose().set('debug', true)
+
+// Used for controller-mongodb interaction
 
 class CustomerDao {
     Schema = mongooseService.getMongoose().Schema
@@ -20,7 +21,7 @@ class CustomerDao {
         zipCode: String,
     }, {
         timestamps: true,
-        toJSON: {
+        toJSON: { // transforming _id so that clients do not need to handle it differently
             transform: function (doc, ret) {
                 ret.id = ret._id
                 delete ret._id;
@@ -32,7 +33,7 @@ class CustomerDao {
     Customer = mongooseService.getMongoose().model('Customers', this.customerSchema)
 
     async createCustomer(customerData: CreateCustomerDto) {
-        const customerId = mongooseService.generateObjectId()
+        const customerId = mongooseService.generateObjectId() // Using string type id instead of ObjectId
         const customer = new this.Customer({
             _id: customerId,
             ...customerData
@@ -58,6 +59,7 @@ class CustomerDao {
         }
 
         if (filterParams) {
+            // Used for sorting resources based on key:value passed in http request as query params
             filterConfig = mongooseService.generateFilterConfig(filterParams, CustomersFilterByEnum)
         }
 
@@ -65,7 +67,7 @@ class CustomerDao {
             .limit(limit)
             .skip(limit * (page - 1))
 
-        if (filterConfig.length > 0) query.or(filterConfig)
+        if (filterConfig.length > 0) query.or(filterConfig) //Building conditional query
         if (sortConfig) query.sort(sortConfig)
 
         return query.exec()

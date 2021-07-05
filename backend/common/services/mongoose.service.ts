@@ -1,6 +1,10 @@
 import mongoose from 'mongoose';
 import { mongoDbConnectionString } from '../common.config'
 
+// Common service for mongodb interation
+// Follows singleton design pattern
+// The same instance is delivered to different components
+
 class MongooseService {
     private mongooseOptions = {
         useNewUrlParser: true,
@@ -21,6 +25,9 @@ class MongooseService {
     }
 
     // process array of filter parameters in order to generate filter configuration for mongoose
+    // Used for search operation
+    // Returns mongoose configuration based on key value passed with http getAll request
+    // Request example: filter=name:nayeem,email:gmail
     generateFilterConfig(filterParams: Array<string>, allowedKeys = {}) {
         const filterConfig: Array<unknown> = []
         try {

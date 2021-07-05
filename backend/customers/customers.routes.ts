@@ -6,9 +6,9 @@ const router = express.Router();
 
 router.route(`/`)
     .get(
-        customerValidators.getCustomerParamsValidationRules(),
-        customerValidators.validate,
-        customerController.getAllCustomers
+        customerValidators.getCustomerParamsValidationRules(), // Rules are  returned as array, no validation done 
+        customerValidators.validate, // It calls the actual validation method on the returned rules
+        customerController.getAllCustomers // At last controller function takes over
     )
     .post(
         customerValidators.createCustomerValidationRules(),
@@ -17,7 +17,7 @@ router.route(`/`)
     )
 
 router.route(`/:customerId`)
-    .all(customerValidators.validateCustomerExists)
+    .all(customerValidators.validateCustomerExists) // making sure resource exists for all request in this endpoint
     .get(customerController.getCustomerById)
     .put(
         customerValidators.putCustomerValidationRules(),

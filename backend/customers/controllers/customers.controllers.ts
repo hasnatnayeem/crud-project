@@ -4,6 +4,7 @@ import customerService from '../services/customers.service'
 
 class CustomerController {
     async getAllCustomers(req: any, res: express.Response) {
+        // Options used for pagination, sorting, searching
         const options: CustomerQueryParams = {
             limit: +req?.query?.limit, // Converting query parameters from string to number
             page: +req?.query?.page,
