@@ -20,6 +20,7 @@ app.use(transformIdProperty) // converting 'id' to '_id' for mongoose
 
 
 router.use('/customers', customersRoutes)
+
 app.use('/v1', router)
 app.use('/v1/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
